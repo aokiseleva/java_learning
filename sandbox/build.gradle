@@ -1,9 +1,14 @@
 apply plugin: 'java'
 apply plugin: 'application'
-mainClassName = "ru.stqa.java.sandbox.MyFirstProgram"
+
+mainClassName = "ru.stqa.java.sandbox.Square"
 
 repositories {
     mavenCentral()
+}
+
+test {
+    useTestNG()
 }
 
 dependencies {
