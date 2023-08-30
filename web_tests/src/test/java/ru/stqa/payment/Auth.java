@@ -3,7 +3,6 @@ package ru.stqa.payment;
 import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.testng.annotations.*;
 import static org.testng.Assert.*;
 import org.openqa.selenium.*;
@@ -15,9 +14,6 @@ import java.io.File;
 
 public class Auth {
   private WebDriver driver;
-  private String baseUrl;
-  private boolean acceptNextAlert = true;
-  private StringBuffer verificationErrors = new StringBuffer();
   private JavascriptExecutor js;
 
  /* @BeforeSuite
@@ -29,7 +25,6 @@ public class Auth {
   public void setUp() throws Exception {
     System.setProperty("webdriver.chrome.driver", "/Users/aosoboleva/ChromeDriver/chromedriver");
     driver = new ChromeDriver();
-    baseUrl = "https://www.google.com/";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     js = (JavascriptExecutor) driver;
   }
@@ -57,10 +52,6 @@ public class Auth {
   @AfterClass(alwaysRun = true)
   public void tearDown() throws Exception {
     driver.quit();
-    String verificationErrorString = verificationErrors.toString();
-    if (!"".equals(verificationErrorString)) {
-      fail(verificationErrorString);
-    }
   }
 
   private boolean isElementPresent(By by) {
@@ -80,19 +71,5 @@ public class Auth {
       return false;
     }
   }
-
-  private String closeAlertAndGetItsText() {
-    try {
-      Alert alert = driver.switchTo().alert();
-      String alertText = alert.getText();
-      if (acceptNextAlert) {
-        alert.accept();
-      } else {
-        alert.dismiss();
-      }
-      return alertText;
-    } finally {
-      acceptNextAlert = true;
-    }
-  }
 }
+
