@@ -16,22 +16,13 @@ public class Auth {
   private WebDriver driver;
   private JavascriptExecutor js;
 
- /* @BeforeSuite
-  static void setupClass() {
-    WebDriverManager.chromedriver().setup();
-  } */
-
-  @BeforeClass(alwaysRun = true)
+  @BeforeMethod
   public void setUp() throws Exception {
     System.setProperty("webdriver.chrome.driver", "/Users/aosoboleva/ChromeDriver/chromedriver");
     driver = new ChromeDriver();
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     js = (JavascriptExecutor) driver;
-  }
-
-  @Test
-  public void testAuth() throws Exception {
-    driver.get("https://develop.payment.ewt.mts.ru/");
+    driver.get("https://test.payment.ewt.mts.ru/");
     driver.findElement(By.linkText("Войти")).click();
     driver.get("https://sso-test.mtsbank.ru/login/mtsmoney/auth/");
     driver.findElement(By.id("phone")).click();
@@ -41,6 +32,10 @@ public class Auth {
     driver.findElement(By.id("otp")).clear();
     driver.findElement(By.id("otp")).sendKeys("1234");
     driver.findElement(By.xpath("//div[@id='__next']/div/div[3]/div/div/div/div/div/div/div/div[3]/div/div[2]/div/div/div/div/div/div/b")).click();
+  }
+
+  @Test
+  public void testAuth() throws Exception {
     driver.findElement(By.name("loanPurpose")).click();
     driver.findElement(By.xpath("//div[@id='creditForm']/div[2]/form/div[2]/div[3]/div/div[2]/div/div/div[2]/div/div/div/div/div/div")).click();
     driver.findElement(By.name("monthIncome")).click();
@@ -49,27 +44,10 @@ public class Auth {
     driver.findElement(By.xpath("//div[@id='creditForm']/div[2]/form/button/div/div/div")).click();
   }
 
-  @AfterClass(alwaysRun = true)
+  @AfterMethod
   public void tearDown() throws Exception {
     driver.quit();
   }
 
-  private boolean isElementPresent(By by) {
-    try {
-      driver.findElement(by);
-      return true;
-    } catch (NoSuchElementException e) {
-      return false;
-    }
-  }
-
-  private boolean isAlertPresent() {
-    try {
-      driver.switchTo().alert();
-      return true;
-    } catch (NoAlertPresentException e) {
-      return false;
-    }
-  }
 }
 
