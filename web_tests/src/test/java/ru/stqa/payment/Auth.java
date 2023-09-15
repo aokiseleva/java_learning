@@ -22,6 +22,10 @@ public class Auth {
     driver = new ChromeDriver();
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     js = (JavascriptExecutor) driver;
+    auth();
+  }
+
+  private void auth() {
     driver.get("https://test.payment.ewt.mts.ru/");
     driver.findElement(By.linkText("Войти")).click();
     driver.get("https://sso-test.mtsbank.ru/login/mtsmoney/auth/");
