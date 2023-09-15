@@ -40,12 +40,13 @@ public class Auth {
     driver.findElement(By.xpath("//div[@id='creditForm']/div[2]/form/div[2]/div[3]/div/div[2]/div/div/div[2]/div/div/div/div/div/div")).click();
     driver.findElement(By.name("monthIncome")).click();
     driver.findElement(By.name("monthIncome")).clear();
-    driver.findElement(By.name("monthIncome")).sendKeys("1 ₽");
+    driver.findElement(By.name("monthIncome")).sendKeys("50000 ₽");
     driver.findElement(By.xpath("//div[@id='creditForm']/div[2]/form/button/div/div/div")).click();
   }
 
   @AfterMethod
   public void tearDown() throws Exception {
+    driver.findElement(By.xpath("//div[@id='__next']/div/div[2]/div/div/div/div[2]/a")).click();
     driver.quit();
   }
 
