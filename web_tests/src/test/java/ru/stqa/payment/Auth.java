@@ -1,15 +1,11 @@
 package ru.stqa.payment;
 
-import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
 
 import org.testng.annotations.*;
-import static org.testng.Assert.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.Select;
-import java.io.File;
 //import org.apache.commons.io.FileUtils;
 
 public class Auth {
@@ -22,19 +18,19 @@ public class Auth {
     driver = new ChromeDriver();
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     js = (JavascriptExecutor) driver;
-    auth();
+    auth("9216462723", "1234");
   }
 
-  private void auth() {
+  private void auth(String phoneNumber, String enterCode) {
     driver.get("https://test.payment.ewt.mts.ru/");
     driver.findElement(By.linkText("Войти")).click();
     driver.get("https://sso-test.mtsbank.ru/login/mtsmoney/auth/");
     driver.findElement(By.id("phone")).click();
     driver.findElement(By.id("phone")).clear();
-    driver.findElement(By.id("phone")).sendKeys("9216462723");
+    driver.findElement(By.id("phone")).sendKeys(phoneNumber);
     driver.findElement(By.xpath("//button[@type='submit']")).click();
     driver.findElement(By.id("otp")).clear();
-    driver.findElement(By.id("otp")).sendKeys("1234");
+    driver.findElement(By.id("otp")).sendKeys(enterCode);
     driver.findElement(By.xpath("//div[@id='__next']/div/div[3]/div/div/div/div/div/div/div/div[3]/div/div[2]/div/div/div/div/div/div/b")).click();
   }
 
